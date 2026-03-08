@@ -7,4 +7,76 @@ editor: visual
 ## Codebase #2
 
 ### Importing data
-For my second dataset, I will clean and analyze https://www.kaggle.com/datasets/aungdev/birth-rate-of-countries-world-bank-data?utm_source=chatgpt.com&select=API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv. This was picked by Khandker Qaiduzzaman in the 5A discussion posts. 
+
+For my second dataset, I will clean and analyze https://www.kaggle.com/datasets/aungdev/birth-rate-of-countries-world-bank-data?utm_source=chatgpt.com&select=API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv. \
+This was picked by Khandker Qaiduzzaman in the 5A discussion posts. I first bring it into my github to be exported.\
+Then I import it.
+
+```{r,message=FALSE, warning=FALSE}
+url <- "https://raw.githubusercontent.com/DylanGoldJ/607-Project-2/refs/heads/main/FileB/API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv"
+
+df <- read_csv(
+  file = url,
+  col_names = FALSE
+)
+head(df, 8)
+```
+We can see that the data is not formated correctly. The column headers are at the 5th row. First we will fix this.
+```{r}
+header <- df[5,]
+colnames(df) <- header
+head(df, 8)
+```
+
+Now lets drop the first 5 rows, they contain no relevant information for us.
+```{r}
+birthrates <- df[-c(1:5), ]
+head(birthrates, 8)
+```
+I will use glimpse to get an idea of the columns and data
+```{r}
+glimpse(birthrates)
+```
+We can see that the columns Indicator Name and Indicator Code seem reducant. We can check to see if the entire column is the same information with unique.
+```{r}
+indicator_names <- unique(birthrates$`Indicator Name`)
+indicator_codes <- unique(birthrates$`Indicator Code`)
+indicator_names
+indicator_codes
+```
+There is only one value for both of these columns, we can just drop these columns they are useless.
+```{r}
+birthrates <- birthrates[-c(3:4)]
+birthrates
+```
+Our data is now in a better format, but it needs to be made longer due to each year containing a column. We can use pivot longer for this.
+```{r}
+birthrates_longer <- birthrates %>%
+  pivot_longer(
+    cols = !(c('Country Name', 'Country Code')),
+    names_to = "year",
+    values_to = "birthrate_per_1000"
+    )
+head(birthrates_longer, 8)
+```
+We can see from the head of the data frame that the years went from columns to individual rows. We can also check to see if we have NA values in our dataframe.
+```{r}
+colSums(is.na(birthrates_longer))
+```
+There are NA values, lets display these values.
+```{r}
+na_birthrates <- birthrates_longer %>%
+  filter(is.na(birthrate_per_1000))
+na_birthrates 
+```
+I look through to see the different rows that have NA values, It looks like the data on some countries is completely gone. Many countries also are missing 2022 data. I believe the best way to deal with these values is to just drop them. I don't think supplimenting them with the average of the country or overall average of the year would be useful. \
+```{r}
+birthrates_longer <- birthrates_longer %>% drop_na()
+colSums(is.na(birthrates_longer))
+```
+We now have a tidy form of our data that we can work to analyze.
+
+### Analysis
+
+
+
