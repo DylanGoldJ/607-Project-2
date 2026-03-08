@@ -14,6 +14,7 @@ In this file I will tidy and analyze the dataset I posted myself in discussion 5
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
+library(gt)
 ```
 
 ```{r,message=FALSE, warning=FALSE}
@@ -44,7 +45,7 @@ energy_data <- df %>%
   pivot_longer(
     cols = !c("day"),
     names_to = c("country", "energy_type"),
-    names_pattern = "^([^_]+)_(.*)", # This regex is starting with : first grouping - characters that are not _, then _, second grouping - rest of string.
+    names_pattern = "^([^_]+)_(.*)_capacity", # This regex is starting with : first grouping - characters that are not _, then _, second grouping - rest of string without capcacity.
     values_to = "energy_amount"
   )
 
@@ -57,9 +58,168 @@ We now have our data in a longer format with just 4 columns. I will check to see
 ```{r}
 colSums(is.na(energy_data))
 ```
+We don't have an NA values.\
 
-We don't have an NA values. Now that the data is in a tidy format we can start to analyze it.
+I will also convert the country codes to full names
+```{r}
+
+country_names <- c(
+  "DE" = "Germany",
+  "GB-UKM" = "United Kingdom",
+  "GB-GBN" = "Great Britain",
+  "FR" = "France",
+  "DK" = "Denmark",
+  "SE" = "Sweden",
+  "GB-NIR" = "Northern Ireland",
+  "CH" = "Switzerland"
+)
+energy_data$country <- country_names[energy_data$country]
+head(energy_data)
+```
+Now that the data is in a tidy format we can start to analyze it.
 
 ### Analysis
 
-My first interest is finding the
+My first interest is finding the difference in each energy type in terms of raw generation among all countries. We can do this per each year. \
+First lets group by the year, country and energy type
+```{r}
+yearly_energy_data <- energy_data %>%
+  mutate(year = year(day)) %>%
+    group_by(year, country, energy_type) %>%
+      summarise(
+        energy_yearly = sum(energy_amount),
+        .groups = "keep"
+      )
+head(yearly_energy_data) #Has 0 values, in 1900s
+tail(yearly_energy_data) #Shows modern values
+```
+
+We can also just group by year and country to combine all the energy types.
+```{r}
+yearly_energy_total <- yearly_energy_data %>%
+  group_by(year, country) %>%
+  summarise(
+    energy_total = sum(energy_yearly),
+    .groups = "keep"
+  )
+yearly_energy_total
+```
+
+To display a table for this I will show the total energy for each country across all years. Keep in mind we dropped na values which may have been unreported years. For the most part it should be fairly accurate. We can also arrange it
+```{r}
+energy_total_by_country <- yearly_energy_total %>%
+  group_by(country) %>%
+    summarise(energy_total = sum(energy_total)) %>%
+      arrange(desc(energy_total))
+energy_total_by_country
+```
+
+We can create a table to show this data
+```{r,message=FALSE, warning=FALSE}
+energy_total_by_country %>%
+  gt() %>%
+    cols_label(
+      country = "Country",
+      energy_total = "Energy Total(megawatt)"
+    ) %>%
+    tab_header(title = md("Energy Generation By Country"))
+```
+Now that we showed a table we can also show some time series to show more analysis.\
+I was interested in seeing how certain types of power generation would change over time. We can look at Germany's Energy Generation.
+```{r}
+germany_energy <- energy_data %>% 
+  filter(country == "Germany")
+
+ggplot(data = germany_energy,
+       aes(x = day,
+           y = energy_amount,
+           color = energy_type)
+       ) +
+      geom_line() +
+      ggtitle("Germany Energy Generation By Type Overtime") +
+      xlab("Time") +
+      ylab("Energy Generated (megawatt)") + 
+      labs(color = "Energy Type")
+```
+We can just use the data from 1990 on wards. We can see until the 1990's energy generation was basically nothing it was compared to today in Germany. This is likely true for all the countries.
+```{r}
+germany_energy <- germany_energy %>%
+  filter(day > as.Date("1990-1-1"))
+
+ggplot(data = germany_energy,
+       aes(x = day,
+           y = energy_amount,
+           color = energy_type)
+       ) +
+      geom_line() +
+      ggtitle("Germany Energy Generation By Type Overtime") +
+      xlab("Time") +
+      ylab("Energy Generated (megawatt)") + 
+      labs(color = "Energy Type")
+```
+We can see above the energy generation of Germany over time. I will also look at United Kingdom, they are producing the next most reported energy in our table.
+```{r}
+UK_energy <- energy_data %>% 
+  filter(country == "United Kingdom") %>%
+    filter(day > as.Date("1940-1-1")) #increased the range, they had some earlier reported energy generation.
+
+ggplot(data = UK_energy,
+       aes(x = day,
+           y = energy_amount,
+           color = energy_type)
+       ) +
+      geom_line() +
+      ggtitle("United Kingdom Generation By Type Overtime") +
+      xlab("Time") +
+      ylab("Energy Generated (megawatt)") + 
+      labs(color = "Energy Type")
+```
+I increased the range for United Kingdom. We can see that they have a much higher amount of certain energies like hydro electric energy. Something I thought was interesting is how the UK has not used much solar energy when compared to Germany, as well as their early adoption of hydro type energy generation. We can see both countries do rely on wind for a large portion of their energy generated.
+
+I will show one more country, France.
+```{r}
+france_energy <- energy_data %>% 
+  filter(country == "France") %>%
+    filter(day > as.Date("1980-1-1")) #increased the range, they had some earlier reported energy generation.
+
+ggplot(data = france_energy,
+       aes(x = day,
+           y = energy_amount,
+           color = energy_type)
+       ) +
+      geom_line() +
+      ggtitle("France Energy Generation By Type Overtime") +
+      xlab("Time") +
+      ylab("Energy Generated (megawatt)")
+```
+We can see for France solar energy is also a large portion of their energy gernation. We dont see some type's of energy generation. This could indicate they may have not reported this energy type. It seems that all countries have solar as a decent portion of their energy generation. I will show a graph of just solar energy now.
+```{r}
+solar_energy <- energy_data %>% 
+  filter(energy_type == "solar") %>%
+    filter(day > as.Date("2000-1-1"))
+
+ggplot(data = solar_energy,
+       aes(x = day,
+           y = energy_amount,
+           color = country)
+       ) +
+      geom_line() +
+      ggtitle("France Energy Generation By Type Overtime") +
+      xlab("Time") +
+      ylab("Energy Generated (megawatt)")
+```      
+
+We can see most countries have some portion of their energy gerneation from solar, Switzerland and Northern Ireland being the exceptions. Germany has by far the most solar in addition to general energy generation.
+
+### Summarizing
+To summarize, We were able to convert our data into a longer format and perform various types of analysis. We looked at the raw generation output in a table and saw that Germany generated by far the most energy. We looked closer at the change of different types of energy over time for different countries like Germany and the United Kingdom. There were some interesting features, like how the UK has a noticeably higher and earlier usage of hydro electric energy generation and saw that wind and solar are both popular forms of energy generation in many of these countries.\
+Some ways we could add on to this is to look at non-renewable energy sources and see if countries with a noticeably lower generated energy like Switzerland and Northern Ireland suppliment with fossil fuels or if it is just a result of a lower population/landmass.
+
+
+
+
+
+
+
+
+
