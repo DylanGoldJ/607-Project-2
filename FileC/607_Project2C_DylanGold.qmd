@@ -4,6 +4,63 @@ format: html
 editor: visual
 ---
 
-## Codebase #1
+## Codebase 3
 
 ### Importing data
+For my 3rd file I picked a dataset containing emission data based on sector and country. This was obtained from a classmates post from dicussion 5A. Muhammad Khan posted
+https://en.wikipedia.org/wiki/List_of_countries_by_carbon_dioxide_emissions#Fossil_carbon_dioxide_emissions_by_country\
+From the link I got this csv file containing the green house gas emissions of countries by sector.\
+I uploaded the file to github then imported this file.
+```{r,message=FALSE, warning=FALSE}
+url <- "https://raw.githubusercontent.com/DylanGoldJ/607-Project-2/refs/heads/main/FileC/EDGAR_2024_GHG_booklet_2024.csv"
+
+df <- read_csv(
+  file = url,
+  col_names = TRUE
+)
+
+head(df, 8)
+```
+I will use glimpse to see the columns of this data set
+```{r}
+glimpse(df)
+```
+We can see that some aspects of the data are already long, such as the sector and the substance. But we can see each year takes a different column we can use pivot longer to convert from a wide format to a long formatted data set.\
+GHG_emissions is in units of  MtCO2eq/yr, metric tons of co2 per year
+```{r}
+emissions <- df %>%
+  pivot_longer(
+    cols = !c("Substance", "Sector", "EDGAR Country Code", "Country"),
+    names_to = "year",
+    values_to = "GHG_emissions"
+  )
+head(emissions)
+```
+
+Our data is now in a longer format. We can check NA values, from glimpse we saw we have several na values.
+
+```{r}
+colSums(is.na(emissions))
+```
+We can filter to see which of these values are NA, which we should remove or just leave. We can first look at the 108 NA
+```{r}
+na_emissions <- emissions %>%
+  filter(is.na(Substance))
+head(na_emissions)
+```
+
+The 108 values can be dropped. These are just empty rows.
+```{r}
+emissions <- emissions %>% drop_na(Substance)
+colSums(is.na(emissions))
+```
+We can now look at our GHG values.
+```{r}
+na_emissions <- emissions %>%
+  filter(is.na(GHG_emissions))
+head(na_emissions)
+```
+It looks like the GHG_emissions value can be NA pretty often. I don't have a good way to replace these values so I will also drop them. It could range from the data not being reported for particular years or other reasons as to why this occurs. We wont be able to graph these points anyway, we can keep this removal in mind for the analysis.
+
+
+### Analysis
