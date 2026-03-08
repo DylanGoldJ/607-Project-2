@@ -7,13 +7,14 @@ editor: visual
 ## Codebase #1
 
 ### Importing data
+
 In this file I will tidy and analyze the dataset I posted myself in discussion 5A. This source is at https://www.kaggle.com/datasets/eugeniyosetrov/renewable-power-plants?resource=download&select=renewable_capacity_timeseries.csv\
+
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
 ```
-
 
 ```{r,message=FALSE, warning=FALSE}
 url <- "https://raw.githubusercontent.com/DylanGoldJ/607-Project-2/refs/heads/main/renewable_capacity_timeseries.csv"
@@ -28,14 +29,15 @@ tail(df, 8)
 
 This dataset has the capacity of different types of energy sources in different countries.
 
-### Tidying the data 
+### Tidying the data
 
 I will use glimpse to see the formating of the columns.
+
 ```{r}
 glimpse(df)
 ```
-We can see that there are 40 columns when we realistically just need 4 columns. We can try to convert our columns into day, country, energy_type, energy_amount.
-I will try to separate the names by the first appearance of '_'.
+
+We can see that there are 40 columns when we realistically just need 4 columns. We can try to convert our columns into day, country, energy_type, energy_amount. I will try to separate the names by the first appearance of '\_'.
 
 ```{r}
 energy_data <- df %>%
@@ -49,12 +51,15 @@ energy_data <- df %>%
 tail(energy_data, 8)
 
 ```
+
 We now have our data in a longer format with just 4 columns. I will check to see NA values that we may need to supplement.
+
 ```{r}
 sum(is.na(energy_data))
 ```
+
 We don't have an NA values. Now that the data is in a tidy format we can start to analyze it.
 
 ### Analysis
 
-
+My first interest is finding the

@@ -1,0 +1,10 @@
+---
+title: "607_Project2B_DylanGold"
+format: html
+editor: visual
+---
+
+## Codebase #2
+
+### Importing data
+For my second dataset, I will clean and analyze https://www.kaggle.com/datasets/aungdev/birth-rate-of-countries-world-bank-data?utm_source=chatgpt.com&select=API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv. This was picked by Khandker Qaiduzzaman in the 5A discussion posts. 
