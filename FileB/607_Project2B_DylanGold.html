@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>607_Project2B_DylanGold</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="607_Project2B_DylanGold_files/libs/clipboard/clipboard.min.js"></script>
+<script src="607_Project2B_DylanGold_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="607_Project2B_DylanGold_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="607_Project2B_DylanGold_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="607_Project2B_DylanGold_files/libs/quarto-html/popper.min.js"></script>
+<script src="607_Project2B_DylanGold_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="607_Project2B_DylanGold_files/libs/quarto-html/anchor.min.js"></script>
+<link href="607_Project2B_DylanGold_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="607_Project2B_DylanGold_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="607_Project2B_DylanGold_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="607_Project2B_DylanGold_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="607_Project2B_DylanGold_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">607_Project2B_DylanGold</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="codebase-2" class="level2">
+<h2 class="anchored" data-anchor-id="codebase-2">Codebase #2</h2>
+<section id="importing-data" class="level3">
+<h3 class="anchored" data-anchor-id="importing-data">Importing data</h3>
+<p>For my second dataset, I will clean and analyze https://www.kaggle.com/datasets/aungdev/birth-rate-of-countries-world-bank-data?utm_source=chatgpt.com&amp;select=API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv.<br>
+This was picked by Brandon Chanderban in the 5A discussion posts. I first bring it into my github to be exported.<br>
+Then I import it.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/DylanGoldJ/607-Project-2/refs/heads/main/FileB/API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> url,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 67
+  X1          X2    X3    X4        X5     X6     X7     X8     X9    X10    X11
+  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Data Source Worl… &lt;NA&gt;  &lt;NA&gt;    NA     NA     NA     NA     NA     NA     NA  
+2 &lt;NA&gt;        &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    NA     NA     NA     NA     NA     NA     NA  
+3 Last Updat… 2023… &lt;NA&gt;  &lt;NA&gt;    NA     NA     NA     NA     NA     NA     NA  
+4 &lt;NA&gt;        &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    NA     NA     NA     NA     NA     NA     NA  
+5 Country Na… Coun… Indi… Indi… 1960   1961   1962   1963   1964   1965   1966  
+6 Aruba       ABW   Birt… SP.D…   33.9   32.8   31.6   30.4   29.1   27.9   26.7
+7 Africa Eas… AFE   Birt… SP.D…   47.4   47.5   47.6   47.6   47.6   47.7   47.7
+8 Afghanistan AFG   Birt… SP.D…   50.3   50.4   50.6   50.7   50.8   50.9   51.0
+# ℹ 56 more variables: X12 &lt;dbl&gt;, X13 &lt;dbl&gt;, X14 &lt;dbl&gt;, X15 &lt;dbl&gt;, X16 &lt;dbl&gt;,
+#   X17 &lt;dbl&gt;, X18 &lt;dbl&gt;, X19 &lt;dbl&gt;, X20 &lt;dbl&gt;, X21 &lt;dbl&gt;, X22 &lt;dbl&gt;,
+#   X23 &lt;dbl&gt;, X24 &lt;dbl&gt;, X25 &lt;dbl&gt;, X26 &lt;dbl&gt;, X27 &lt;dbl&gt;, X28 &lt;dbl&gt;,
+#   X29 &lt;dbl&gt;, X30 &lt;dbl&gt;, X31 &lt;dbl&gt;, X32 &lt;dbl&gt;, X33 &lt;dbl&gt;, X34 &lt;dbl&gt;,
+#   X35 &lt;dbl&gt;, X36 &lt;dbl&gt;, X37 &lt;dbl&gt;, X38 &lt;dbl&gt;, X39 &lt;dbl&gt;, X40 &lt;dbl&gt;,
+#   X41 &lt;dbl&gt;, X42 &lt;dbl&gt;, X43 &lt;dbl&gt;, X44 &lt;dbl&gt;, X45 &lt;dbl&gt;, X46 &lt;dbl&gt;,
+#   X47 &lt;dbl&gt;, X48 &lt;dbl&gt;, X49 &lt;dbl&gt;, X50 &lt;dbl&gt;, X51 &lt;dbl&gt;, X52 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>We can see that the data is not formated correctly. The column headers are at the 5th row. First we will fix this.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>header <span class="ot">&lt;-</span> df[<span class="dv">5</span>,]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> header</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 67
+  `Country Name`  `Country Code` `Indicator Name` `Indicator Code` `1960` `1961`
+  &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;
+1 Data Source     World Develop… &lt;NA&gt;             &lt;NA&gt;               NA     NA  
+2 &lt;NA&gt;            &lt;NA&gt;           &lt;NA&gt;             &lt;NA&gt;               NA     NA  
+3 Last Updated D… 2023-06-29     &lt;NA&gt;             &lt;NA&gt;               NA     NA  
+4 &lt;NA&gt;            &lt;NA&gt;           &lt;NA&gt;             &lt;NA&gt;               NA     NA  
+5 Country Name    Country Code   Indicator Name   Indicator Code   1960   1961  
+6 Aruba           ABW            Birth rate, cru… SP.DYN.CBRT.IN     33.9   32.8
+7 Africa Eastern… AFE            Birth rate, cru… SP.DYN.CBRT.IN     47.4   47.5
+8 Afghanistan     AFG            Birth rate, cru… SP.DYN.CBRT.IN     50.3   50.4
+# ℹ 61 more variables: `1962` &lt;dbl&gt;, `1963` &lt;dbl&gt;, `1964` &lt;dbl&gt;, `1965` &lt;dbl&gt;,
+#   `1966` &lt;dbl&gt;, `1967` &lt;dbl&gt;, `1968` &lt;dbl&gt;, `1969` &lt;dbl&gt;, `1970` &lt;dbl&gt;,
+#   `1971` &lt;dbl&gt;, `1972` &lt;dbl&gt;, `1973` &lt;dbl&gt;, `1974` &lt;dbl&gt;, `1975` &lt;dbl&gt;,
+#   `1976` &lt;dbl&gt;, `1977` &lt;dbl&gt;, `1978` &lt;dbl&gt;, `1979` &lt;dbl&gt;, `1980` &lt;dbl&gt;,
+#   `1981` &lt;dbl&gt;, `1982` &lt;dbl&gt;, `1983` &lt;dbl&gt;, `1984` &lt;dbl&gt;, `1985` &lt;dbl&gt;,
+#   `1986` &lt;dbl&gt;, `1987` &lt;dbl&gt;, `1988` &lt;dbl&gt;, `1989` &lt;dbl&gt;, `1990` &lt;dbl&gt;,
+#   `1991` &lt;dbl&gt;, `1992` &lt;dbl&gt;, `1993` &lt;dbl&gt;, `1994` &lt;dbl&gt;, `1995` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>Now lets drop the first 5 rows, they contain no relevant information for us.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>birthrates <span class="ot">&lt;-</span> df[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), ]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(birthrates, <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 67
+  `Country Name`  `Country Code` `Indicator Name` `Indicator Code` `1960` `1961`
+  &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;             &lt;dbl&gt;  &lt;dbl&gt;
+1 Aruba           ABW            Birth rate, cru… SP.DYN.CBRT.IN     33.9   32.8
+2 Africa Eastern… AFE            Birth rate, cru… SP.DYN.CBRT.IN     47.4   47.5
+3 Afghanistan     AFG            Birth rate, cru… SP.DYN.CBRT.IN     50.3   50.4
+4 Africa Western… AFW            Birth rate, cru… SP.DYN.CBRT.IN     47.3   47.4
+5 Angola          AGO            Birth rate, cru… SP.DYN.CBRT.IN     51.0   51.3
+6 Albania         ALB            Birth rate, cru… SP.DYN.CBRT.IN     41.1   40.3
+7 Andorra         AND            Birth rate, cru… SP.DYN.CBRT.IN     NA     NA  
+8 Arab World      ARB            Birth rate, cru… SP.DYN.CBRT.IN     47.6   47.6
+# ℹ 61 more variables: `1962` &lt;dbl&gt;, `1963` &lt;dbl&gt;, `1964` &lt;dbl&gt;, `1965` &lt;dbl&gt;,
+#   `1966` &lt;dbl&gt;, `1967` &lt;dbl&gt;, `1968` &lt;dbl&gt;, `1969` &lt;dbl&gt;, `1970` &lt;dbl&gt;,
+#   `1971` &lt;dbl&gt;, `1972` &lt;dbl&gt;, `1973` &lt;dbl&gt;, `1974` &lt;dbl&gt;, `1975` &lt;dbl&gt;,
+#   `1976` &lt;dbl&gt;, `1977` &lt;dbl&gt;, `1978` &lt;dbl&gt;, `1979` &lt;dbl&gt;, `1980` &lt;dbl&gt;,
+#   `1981` &lt;dbl&gt;, `1982` &lt;dbl&gt;, `1983` &lt;dbl&gt;, `1984` &lt;dbl&gt;, `1985` &lt;dbl&gt;,
+#   `1986` &lt;dbl&gt;, `1987` &lt;dbl&gt;, `1988` &lt;dbl&gt;, `1989` &lt;dbl&gt;, `1990` &lt;dbl&gt;,
+#   `1991` &lt;dbl&gt;, `1992` &lt;dbl&gt;, `1993` &lt;dbl&gt;, `1994` &lt;dbl&gt;, `1995` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>I will use glimpse to get an idea of the columns and data</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(birthrates)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 266
+Columns: 67
+$ `Country Name`   &lt;chr&gt; "Aruba", "Africa Eastern and Southern", "Afghanistan"…
+$ `Country Code`   &lt;chr&gt; "ABW", "AFE", "AFG", "AFW", "AGO", "ALB", "AND", "ARB…
+$ `Indicator Name` &lt;chr&gt; "Birth rate, crude (per 1,000 people)", "Birth rate, …
+$ `Indicator Code` &lt;chr&gt; "SP.DYN.CBRT.IN", "SP.DYN.CBRT.IN", "SP.DYN.CBRT.IN",…
+$ `1960`           &lt;dbl&gt; 33.88300, 47.43855, 50.34000, 47.32548, 51.02600, 41.…
+$ `1961`           &lt;dbl&gt; 32.83100, 47.53055, 50.44300, 47.42105, 51.28200, 40.…
+$ `1962`           &lt;dbl&gt; 31.64900, 47.59756, 50.57000, 47.52922, 51.31600, 39.…
+$ `1963`           &lt;dbl&gt; 30.41600, 47.63614, 50.70300, 47.53103, 51.32300, 38.…
+$ `1964`           &lt;dbl&gt; 29.14700, 47.64548, 50.83100, 47.51192, 51.28200, 36.…
+$ `1965`           &lt;dbl&gt; 27.88900, 47.66766, 50.87200, 47.46857, 51.28200, 35.…
+$ `1966`           &lt;dbl&gt; 26.66300, 47.69789, 50.98600, 47.44364, 51.29500, 34.…
+$ `1967`           &lt;dbl&gt; 25.50300, 47.69133, 51.08100, 47.42593, 51.31400, 33.…
+$ `1968`           &lt;dbl&gt; 24.59200, 47.69102, 51.14800, 47.42235, 51.34800, 33.…
+$ `1969`           &lt;dbl&gt; 23.73500, 47.72112, 51.19500, 47.41269, 51.35300, 33.…
+$ `1970`           &lt;dbl&gt; 22.97400, 47.67313, 51.12200, 47.41411, 51.26700, 32.…
+$ `1971`           &lt;dbl&gt; 22.31300, 47.64967, 51.16300, 47.52970, 50.69800, 31.…
+$ `1972`           &lt;dbl&gt; 21.76600, 47.47074, 51.10900, 47.57899, 50.47400, 31.…
+$ `1973`           &lt;dbl&gt; 21.49200, 47.22113, 51.11400, 47.63283, 50.46700, 30.…
+$ `1974`           &lt;dbl&gt; 21.38200, 47.07547, 51.13500, 47.81713, 50.47200, 30.…
+$ `1975`           &lt;dbl&gt; 21.39300, 46.95020, 51.01800, 47.91150, 50.46900, 29.…
+$ `1976`           &lt;dbl&gt; 21.48500, 46.79183, 50.93500, 47.86907, 50.51400, 29.…
+$ `1977`           &lt;dbl&gt; 21.73900, 46.63214, 50.92100, 47.96894, 50.52300, 28.…
+$ `1978`           &lt;dbl&gt; 21.92000, 46.51202, 50.81600, 48.03727, 50.61600, 27.…
+$ `1979`           &lt;dbl&gt; 21.99300, 46.47196, 50.73700, 47.93830, 50.73200, 27.…
+$ `1980`           &lt;dbl&gt; 21.93100, 46.33961, 50.48200, 47.77071, 50.89200, 26.…
+$ `1981`           &lt;dbl&gt; 21.73000, 46.23755, 50.26400, 47.51406, 51.10900, 26.…
+$ `1982`           &lt;dbl&gt; 21.47600, 46.15826, 50.13800, 47.25192, 51.30700, 26.…
+$ `1983`           &lt;dbl&gt; 21.38500, 46.13473, 50.13900, 47.11112, 51.61000, 26.…
+$ `1984`           &lt;dbl&gt; 21.18300, 46.13520, 50.23500, 46.70656, 51.93500, 26.…
+$ `1985`           &lt;dbl&gt; 20.91900, 46.14379, 50.55300, 46.20665, 52.13600, 26.…
+$ `1986`           &lt;dbl&gt; 20.61700, 46.06749, 50.72800, 45.72924, 52.19000, 25.…
+$ `1987`           &lt;dbl&gt; 20.26900, 45.83058, 50.84500, 45.34627, 52.14600, 25.…
+$ `1988`           &lt;dbl&gt; 19.82100, 45.33736, 50.98000, 45.00171, 51.97300, 25.…
+$ `1989`           &lt;dbl&gt; 19.18400, 44.81301, 51.16200, 44.92848, 51.69900, 24.…
+$ `1990`           &lt;dbl&gt; 18.66200, 44.23072, 51.42300, 44.67619, 51.34400, 24.…
+$ `1991`           &lt;dbl&gt; 17.72200, 43.84232, 51.78800, 44.47423, 50.92600, 23.…
+$ `1992`           &lt;dbl&gt; 16.44300, 43.34168, 51.94800, 44.30932, 50.37400, 23.…
+$ `1993`           &lt;dbl&gt; 16.12600, 42.96601, 52.03800, 44.16810, 49.89300, 22.…
+$ `1994`           &lt;dbl&gt; 15.43100, 42.53329, 52.17400, 43.94269, 49.55000, 22.…
+$ `1995`           &lt;dbl&gt; 15.99100, 42.48572, 52.07300, 43.73024, 49.18500, 21.…
+$ `1996`           &lt;dbl&gt; 16.15300, 42.13563, 51.87300, 43.49103, 48.86000, 20.…
+$ `1997`           &lt;dbl&gt; 16.38800, 41.57346, 51.40000, 43.21922, 48.41200, 19.…
+$ `1998`           &lt;dbl&gt; 15.07800, 41.12879, 50.88000, 43.02697, 48.00900, 18.…
+$ `1999`           &lt;dbl&gt; 14.36100, 40.89482, 50.35100, 43.17424, 47.77300, 17.…
+$ `2000`           &lt;dbl&gt; 14.42700, 40.52824, 49.66400, 43.19955, 47.64700, 17.…
+$ `2001`           &lt;dbl&gt; 13.73900, 40.34121, 48.97900, 43.07550, 47.57400, 16.…
+$ `2002`           &lt;dbl&gt; 12.99200, 40.04732, 48.20100, 42.92712, 47.44800, 15.…
+$ `2003`           &lt;dbl&gt; 12.62100, 39.75014, 47.35000, 42.74688, 47.22600, 14.…
+$ `2004`           &lt;dbl&gt; 11.92100, 39.57589, 46.33000, 42.50272, 47.09900, 13.…
+$ `2005`           &lt;dbl&gt; 12.34800, 39.40739, 45.26300, 42.42154, 46.94400, 13.…
+$ `2006`           &lt;dbl&gt; 13.05500, 39.23711, 44.72100, 42.19330, 46.64300, 12.…
+$ `2007`           &lt;dbl&gt; 12.96200, 39.00052, 43.85800, 41.94301, 46.29000, 12.…
+$ `2008`           &lt;dbl&gt; 12.74800, 38.85169, 41.50600, 41.75479, 45.88900, 11.…
+$ `2009`           &lt;dbl&gt; 12.35000, 38.36494, 41.15700, 41.50376, 45.49500, 11.…
+$ `2010`           &lt;dbl&gt; 12.19300, 37.94026, 40.60200, 41.21963, 44.97000, 11.…
+$ `2011`           &lt;dbl&gt; 12.24600, 37.48399, 39.85500, 40.89424, 44.36400, 12.…
+$ `2012`           &lt;dbl&gt; 12.72300, 36.92130, 40.00900, 40.41643, 43.86000, 12.…
+$ `2013`           &lt;dbl&gt; 13.31600, 36.44714, 39.60100, 39.85651, 43.28200, 12.…
+$ `2014`           &lt;dbl&gt; 13.53300, 36.02832, 39.10500, 39.33535, 42.67600, 12.…
+$ `2015`           &lt;dbl&gt; 12.42800, 35.61331, 38.80300, 38.85921, 42.02000, 11.…
+$ `2016`           &lt;dbl&gt; 12.30000, 35.18902, 37.93600, 38.39310, 41.37700, 11.…
+$ `2017`           &lt;dbl&gt; 11.53000, 34.89254, 37.34200, 37.88166, 40.81000, 10.…
+$ `2018`           &lt;dbl&gt; 9.88100, 34.61102, 36.92700, 37.44709, 40.23600, 10.5…
+$ `2019`           &lt;dbl&gt; 9.13800, 34.34145, 36.46600, 37.02783, 39.72500, 10.3…
+$ `2020`           &lt;dbl&gt; 8.10200, 33.91675, 36.05100, 36.61573, 39.27100, 10.2…
+$ `2021`           &lt;dbl&gt; 7.19300, 33.54627, 35.84200, 36.23703, 38.80900, 10.2…
+$ `2022`           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
+</div>
+</div>
+<p>We can see that the columns Indicator Name and Indicator Code seem reducant. We can check to see if the entire column is the same information with unique.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>indicator_names <span class="ot">&lt;-</span> <span class="fu">unique</span>(birthrates<span class="sc">$</span><span class="st">`</span><span class="at">Indicator Name</span><span class="st">`</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>indicator_codes <span class="ot">&lt;-</span> <span class="fu">unique</span>(birthrates<span class="sc">$</span><span class="st">`</span><span class="at">Indicator Code</span><span class="st">`</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>indicator_names</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Birth rate, crude (per 1,000 people)"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>indicator_codes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SP.DYN.CBRT.IN"</code></pre>
+</div>
+</div>
+<p>There is only one value for both of these columns, we can just drop these columns they are useless.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>birthrates <span class="ot">&lt;-</span> birthrates[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>birthrates</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 266 × 65
+   `Country Name`       `Country Code` `1960` `1961` `1962` `1963` `1964` `1965`
+   &lt;chr&gt;                &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Aruba                ABW              33.9   32.8   31.6   30.4   29.1   27.9
+ 2 Africa Eastern and … AFE              47.4   47.5   47.6   47.6   47.6   47.7
+ 3 Afghanistan          AFG              50.3   50.4   50.6   50.7   50.8   50.9
+ 4 Africa Western and … AFW              47.3   47.4   47.5   47.5   47.5   47.5
+ 5 Angola               AGO              51.0   51.3   51.3   51.3   51.3   51.3
+ 6 Albania              ALB              41.1   40.3   39.2   38.1   36.8   35.4
+ 7 Andorra              AND              NA     NA     NA     NA     NA     NA  
+ 8 Arab World           ARB              47.6   47.6   47.9   47.6   47.3   46.9
+ 9 United Arab Emirates ARE              41.8   41.4   41.1   40.6   40.0   39.4
+10 Argentina            ARG              23.8   23.6   23.8   23.7   23.4   23.3
+# ℹ 256 more rows
+# ℹ 57 more variables: `1966` &lt;dbl&gt;, `1967` &lt;dbl&gt;, `1968` &lt;dbl&gt;, `1969` &lt;dbl&gt;,
+#   `1970` &lt;dbl&gt;, `1971` &lt;dbl&gt;, `1972` &lt;dbl&gt;, `1973` &lt;dbl&gt;, `1974` &lt;dbl&gt;,
+#   `1975` &lt;dbl&gt;, `1976` &lt;dbl&gt;, `1977` &lt;dbl&gt;, `1978` &lt;dbl&gt;, `1979` &lt;dbl&gt;,
+#   `1980` &lt;dbl&gt;, `1981` &lt;dbl&gt;, `1982` &lt;dbl&gt;, `1983` &lt;dbl&gt;, `1984` &lt;dbl&gt;,
+#   `1985` &lt;dbl&gt;, `1986` &lt;dbl&gt;, `1987` &lt;dbl&gt;, `1988` &lt;dbl&gt;, `1989` &lt;dbl&gt;,
+#   `1990` &lt;dbl&gt;, `1991` &lt;dbl&gt;, `1992` &lt;dbl&gt;, `1993` &lt;dbl&gt;, `1994` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>Our data is now in a better format, but it needs to be made longer due to each year containing a column. We can use pivot longer for this.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>birthrates_longer <span class="ot">&lt;-</span> birthrates <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">!</span>(<span class="fu">c</span>(<span class="st">'Country Name'</span>, <span class="st">'Country Code'</span>)),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"year"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"birthrate_per_1000"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(birthrates_longer, <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+  `Country Name` `Country Code` year  birthrate_per_1000
+  &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;              &lt;dbl&gt;
+1 Aruba          ABW            1960                33.9
+2 Aruba          ABW            1961                32.8
+3 Aruba          ABW            1962                31.6
+4 Aruba          ABW            1963                30.4
+5 Aruba          ABW            1964                29.1
+6 Aruba          ABW            1965                27.9
+7 Aruba          ABW            1966                26.7
+8 Aruba          ABW            1967                25.5</code></pre>
+</div>
+</div>
+<p>We can see from the head of the data frame that the years went from columns to individual rows. We can also check to see if we have NA values in our dataframe.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(birthrates_longer))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Country Name       Country Code               year birthrate_per_1000 
+                 0                  0                  0                721 </code></pre>
+</div>
+</div>
+<p>There are NA values, lets display these values.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>na_birthrates <span class="ot">&lt;-</span> birthrates_longer <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(birthrate_per_1000))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>na_birthrates </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 721 × 4
+   `Country Name`              `Country Code` year  birthrate_per_1000
+   &lt;chr&gt;                       &lt;chr&gt;          &lt;chr&gt;              &lt;dbl&gt;
+ 1 Aruba                       ABW            2022                  NA
+ 2 Africa Eastern and Southern AFE            2022                  NA
+ 3 Afghanistan                 AFG            2022                  NA
+ 4 Africa Western and Central  AFW            2022                  NA
+ 5 Angola                      AGO            2022                  NA
+ 6 Albania                     ALB            2022                  NA
+ 7 Andorra                     AND            1960                  NA
+ 8 Andorra                     AND            1961                  NA
+ 9 Andorra                     AND            1962                  NA
+10 Andorra                     AND            1963                  NA
+# ℹ 711 more rows</code></pre>
+</div>
+</div>
+<p>I look through to see the different rows that have NA values, It looks like the data on some countries is completely gone. Many countries also are missing 2022 data. I believe the best way to deal with these values is to just drop them. I don’t think supplimenting them with the average of the country or overall average of the year would be useful.<br>
+</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>birthrates_longer <span class="ot">&lt;-</span> birthrates_longer <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(birthrates_longer))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Country Name       Country Code               year birthrate_per_1000 
+                 0                  0                  0                  0 </code></pre>
+</div>
+</div>
+<p>We now have a tidy form of our data that we can work to analyze.</p>
+</section>
+<section id="analysis" class="level3">
+<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
+<p>We can try to answer some of the questions our classmate asked in their discussion post. We can start off with comparing the trends in birth rates over time for different selected countries or regions. I will start off by looking at the highest overall average birthrates in all countries to see which countries typically have higher birthrates.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>birthrate_avg <span class="ot">&lt;-</span> birthrates_longer <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Country Name</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">avg_birthrate_per_1000 =</span> <span class="fu">mean</span>(birthrate_per_1000)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_birthrate_per_1000))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(birthrate_avg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  `Country Name` avg_birthrate_per_1000
+  &lt;chr&gt;                           &lt;dbl&gt;
+1 Niger                            53.3
+2 Chad                             48.6
+3 Angola                           48.4
+4 Mali                             47.8
+5 South Sudan                      47.8
+6 Afghanistan                      47.7</code></pre>
+</div>
+</div>
+<p>We can display this information with a table using Gt.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>birthrate_avg <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cols_label</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Country Name</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Country"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">avg_birthrate_per_1000 =</span> <span class="st">"Average Birthrate(per 1000 people)"</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">md</span>(<span class="st">"Average Birthrate by Country"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_options</span>(<span class="at">container.height =</span> <span class="dv">500</span>, <span class="at">container.overflow.y =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="hngtadvqkk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:500px;">
+<style>#hngtadvqkk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hngtadvqkk thead, #hngtadvqkk tbody, #hngtadvqkk tfoot, #hngtadvqkk tr, #hngtadvqkk td, #hngtadvqkk th {
+  border-style: none;
+}
+
+#hngtadvqkk p {
+  margin: 0;
+  padding: 0;
+}
+
+#hngtadvqkk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#hngtadvqkk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#hngtadvqkk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#hngtadvqkk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#hngtadvqkk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#hngtadvqkk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#hngtadvqkk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#hngtadvqkk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#hngtadvqkk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#hngtadvqkk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#hngtadvqkk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#hngtadvqkk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#hngtadvqkk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#hngtadvqkk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#hngtadvqkk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hngtadvqkk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#hngtadvqkk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#hngtadvqkk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#hngtadvqkk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hngtadvqkk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#hngtadvqkk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hngtadvqkk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#hngtadvqkk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hngtadvqkk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hngtadvqkk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hngtadvqkk .gt_left {
+  text-align: left;
+}
+
+#hngtadvqkk .gt_center {
+  text-align: center;
+}
+
+#hngtadvqkk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#hngtadvqkk .gt_font_normal {
+  font-weight: normal;
+}
+
+#hngtadvqkk .gt_font_bold {
+  font-weight: bold;
+}
+
+#hngtadvqkk .gt_font_italic {
+  font-style: italic;
+}
+
+#hngtadvqkk .gt_super {
+  font-size: 65%;
+}
+
+#hngtadvqkk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#hngtadvqkk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#hngtadvqkk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#hngtadvqkk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#hngtadvqkk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hngtadvqkk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hngtadvqkk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#hngtadvqkk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#hngtadvqkk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Average Birthrate by Country</td>
+</tr>
+<tr class="gt_col_headings even">
+<th id="Country-Name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Country</th>
+<th id="avg_birthrate_per_1000" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Average Birthrate(per 1000 people)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Niger</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">53.262226</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Chad</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">48.574339</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Angola</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">48.387597</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Mali</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">47.800435</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">South Sudan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">47.768903</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Afghanistan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">47.665823</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Somalia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">47.444919</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Malawi</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">47.080839</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Uganda</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">46.981435</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Yemen, Rep.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">46.349387</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Cote d'Ivoire</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">46.255532</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Congo, Dem. Rep.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">45.670984</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Zambia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">45.665081</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Burkina Faso</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">45.387387</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Burundi</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">45.176210</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Ethiopia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.821129</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Pre-demographic dividend</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.622297</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Mozambique</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.595452</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Tanzania</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.409097</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Gambia, The</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.355048</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Africa Western and Central</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.232591</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Heavily indebted poor countries (HIPC)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.211938</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Nigeria</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">44.126452</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Sierra Leone</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.919290</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Benin</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.666129</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Liberia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.634435</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Low income</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.566217</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Central African Republic</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.545710</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Kenya</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.409887</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Sub-Saharan Africa (excluding high income)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.376251</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Sub-Saharan Africa</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.374105</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Sub-Saharan Africa (IDA &amp; IBRD countries)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.374105</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Rwanda</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.244419</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Guinea</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">43.011968</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Africa Eastern and Southern</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">42.792442</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Senegal</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">42.783839</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Cameroon</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">42.589081</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Sudan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">42.357016</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Madagascar</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">41.929258</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Guinea-Bissau</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">41.922452</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Togo</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">41.713694</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Least developed countries: UN classification</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">41.354148</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Equatorial Guinea</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">41.104403</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Mauritania</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">40.801661</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Eritrea</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">40.646290</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">IDA blend</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">40.626757</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">IDA total</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">40.453477</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">IDA only</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">40.356718</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Comoros</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">40.115403</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Ghana</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">39.709435</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Zimbabwe</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">39.586129</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Marshall Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">39.576306</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Congo, Rep.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">39.451484</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Eswatini</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">39.124887</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Pakistan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">38.954677</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Fragile and conflict affected situations</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">38.606717</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Sao Tome and Principe</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">38.282548</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Iraq</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">38.275323</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Timor-Leste</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">38.254258</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Solomon Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">37.992968</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Jordan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">37.270194</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Tajikistan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">37.201565</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Guatemala</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">37.195677</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Lao PDR</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">37.140032</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">West Bank and Gaza</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">37.085625</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Vanuatu</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">37.030758</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Oman</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">36.885516</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Djibouti</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">36.754565</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Honduras</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">36.703177</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Namibia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">36.509935</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Papua New Guinea</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">36.129242</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Botswana</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">36.025177</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Syrian Arab Republic</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">36.024323</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Arab World</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">35.873112</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Nicaragua</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">35.511839</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Saudi Arabia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.934597</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Maldives</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.928935</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Bangladesh</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.904177</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Haiti</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.812694</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Lesotho</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.772000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Gabon</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.473629</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Nepal</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.461323</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Cambodia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.448016</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Kiribati</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.370097</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Samoa</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.318403</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Bolivia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.143903</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Egypt, Arab Rep.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">34.008323</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Middle East &amp; North Africa (excluding high income)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.996087</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Middle East &amp; North Africa (IDA &amp; IBRD countries)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.934523</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Cabo Verde</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.893419</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Micronesia, Fed. Sts.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.683403</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Bhutan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.651210</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Middle East &amp; North Africa</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.600741</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Algeria</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.523161</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Belize</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">33.087258</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Pacific island small states</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.968387</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Philippines</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.967194</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Lower middle income</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.837176</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Libya</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.419097</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Turkmenistan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.227258</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">El Salvador</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.209032</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">South Asia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.173309</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">South Asia (IDA &amp; IBRD)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">32.173309</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Early-demographic dividend</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">31.991848</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Tonga</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">31.940339</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Morocco</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">31.814032</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Mongolia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">31.686629</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Uzbekistan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">31.323226</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Dominican Republic</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">31.278855</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Paraguay</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">31.245210</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Peru</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">30.900403</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Other small states</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">30.774410</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">India</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">30.731710</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Iran, Islamic Rep.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">30.613419</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Mexico</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">30.606984</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Ecuador</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">30.373306</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">South Africa</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">29.928097</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Small states</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">29.638167</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Kuwait</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">29.190274</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Fiji</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">29.102984</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Guyana</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">29.073097</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Kyrgyz Republic</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">29.009113</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Venezuela, RB</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.937645</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Suriname</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.682274</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">St. Martin (French part)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.652774</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Tunisia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.648661</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Indonesia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.514806</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Nauru</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.507323</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Low &amp; middle income</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.406261</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Myanmar</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.384468</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">IDA &amp; IBRD total</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.198101</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Panama</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">28.160823</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Turkiye</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">27.741306</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Latin America &amp; Caribbean (excluding high income)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">27.721713</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Latin America &amp; the Caribbean (IDA &amp; IBRD countries)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">27.711546</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Tuvalu</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">27.681645</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Latin America &amp; Caribbean</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">27.369910</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Middle income</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">27.169328</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Colombia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">27.149484</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">St. Lucia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.968661</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Bahrain</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.887484</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Malaysia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.815774</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Brunei Darussalam</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.536339</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">French Polynesia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.475613</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Vietnam</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.439226</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Qatar</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.392468</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Kosovo</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.246468</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Lebanon</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">26.030194</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Guam</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.960710</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">St. Vincent and the Grenadines</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.929548</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Brazil</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.900274</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Turks and Caicos Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.537548</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Costa Rica</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.537500</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">World</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.523428</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Jamaica</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.217661</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Grenada</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">25.016258</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Caribbean small states</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">24.961436</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">IBRD only</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">24.928587</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Azerbaijan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">24.463177</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">New Caledonia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">24.287903</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">United Arab Emirates</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">24.101790</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">St. Kitts and Nevis</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">23.517452</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Kazakhstan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">23.280726</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Sri Lanka</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">23.125032</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Israel</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">23.112903</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Albania</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">22.847694</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Thailand</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">22.536710</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Bahamas, The</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">22.408435</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">East Asia &amp; Pacific (IDA &amp; IBRD countries)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">22.304976</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">East Asia &amp; Pacific (excluding high income)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">22.294827</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Upper middle income</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">22.121672</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Dominica</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">22.116371</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Seychelles</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">21.990196</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Trinidad and Tobago</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">21.927129</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Virgin Islands (U.S.)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">21.858065</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Korea, Dem. People's Rep.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">21.536403</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">East Asia &amp; Pacific</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">21.302650</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Chile</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">21.124532</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Mauritius</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">21.069871</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Argentina</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">20.968613</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Antigua and Barbuda</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">20.731516</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Armenia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">20.685645</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Late-demographic dividend</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">20.392122</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Sint Maarten (Dutch part)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">20.238871</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">China</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">19.923548</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Curacao</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">18.907952</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Korea, Rep.</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">18.430758</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Puerto Rico</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">18.423871</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Aruba</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">18.377113</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Europe &amp; Central Asia (excluding high income)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">18.042320</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Cuba</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.770226</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Greenland</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.638776</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Iceland</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.600000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">North Macedonia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.553076</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">British Virgin Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.512081</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Europe &amp; Central Asia (IDA &amp; IBRD countries)</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.443324</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Moldova</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.431097</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">American Samoa</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.420000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Ireland</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.379032</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Uruguay</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.299371</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Cyprus</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.168016</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Georgia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.163726</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">New Zealand</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">17.040645</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Montenegro</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">16.864935</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Northern Mariana Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">16.850000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Singapore</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">16.806452</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Barbados</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">16.756935</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Gibraltar</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">16.754113</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">OECD members</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">16.032054</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Faroe Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">15.798077</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Bosnia and Herzegovina</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">15.681758</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Australia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">15.617742</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Palau</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">15.450000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">United States</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">15.375806</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">North America</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">15.275795</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Europe &amp; Central Asia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">15.032399</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Hong Kong SAR, China</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.803629</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Slovak Republic</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.796774</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Cayman Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.605405</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">High income</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.438668</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Canada</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.390323</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Malta</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.354839</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Macao SAR, China</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.348887</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Poland</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.287097</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Portugal</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.253226</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Romania</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.201613</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">France</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">14.138710</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Belarus</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.879597</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Liechtenstein</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.803226</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Post-demographic dividend</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.715831</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Lithuania</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.688710</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Russian Federation</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.655113</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Norway</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.643548</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Bermuda</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.545000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Central Europe and the Baltics</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.521889</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Netherlands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.487097</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">United Kingdom</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.482258</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Spain</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">13.301613</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Estonia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.887097</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">European Union</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.784393</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Slovenia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.730645</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Finland</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.695161</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Denmark</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.682258</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Czechia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.609677</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Serbia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.580032</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Euro area</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.575640</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Belgium</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.524194</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Ukraine</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.503403</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Switzerland</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.490323</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Sweden</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.393548</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Channel Islands</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.388819</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Luxembourg</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.335484</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Greece</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.300000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Croatia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.275694</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Latvia</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.269355</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Bulgaria</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.229032</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Isle of Man</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.187919</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Austria</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.040323</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Japan</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">12.037097</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Hungary</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">11.920968</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Monaco</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">11.700000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Italy</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">11.669355</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">Germany</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">11.001613</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Country Name">Andorra</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">10.768966</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Country Name">San Marino</td>
+<td class="gt_row gt_right" headers="avg_birthrate_per_1000">8.761111</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We can see some of the countries with the highest average birthrate being Niger, Chad, Angold, Mali and so on.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

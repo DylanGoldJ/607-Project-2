@@ -9,10 +9,16 @@ editor: visual
 ### Importing data
 
 For my second dataset, I will clean and analyze https://www.kaggle.com/datasets/aungdev/birth-rate-of-countries-world-bank-data?utm_source=chatgpt.com&select=API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv. \
-This was picked by Khandker Qaiduzzaman in the 5A discussion posts. I first bring it into my github to be exported.\
+This was picked by Brandon Chanderban in the 5A discussion posts. I first bring it into my github to be exported.\
 Then I import it.
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(gt)
+```
 
-```{r,message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 url <- "https://raw.githubusercontent.com/DylanGoldJ/607-Project-2/refs/heads/main/FileB/API_SP.DYN.CBRT.IN_DS2_en_csv_v2_5607611.csv"
 
 df <- read_csv(
@@ -59,6 +65,11 @@ birthrates_longer <- birthrates %>%
     )
 head(birthrates_longer, 8)
 ```
+Our years are the chr data type, convert them to an appropriate type.
+```{r}
+birthrates_longer$year <- as.numeric(birthrates_longer$year)
+head(birthrates_longer, 8)
+```
 We can see from the head of the data frame that the years went from columns to individual rows. We can also check to see if we have NA values in our dataframe.
 ```{r}
 colSums(is.na(birthrates_longer))
@@ -74,9 +85,70 @@ I look through to see the different rows that have NA values, It looks like the 
 birthrates_longer <- birthrates_longer %>% drop_na()
 colSums(is.na(birthrates_longer))
 ```
+
+
 We now have a tidy form of our data that we can work to analyze.
 
 ### Analysis
+We can try to answer some of the questions our classmate asked in their discussion post.
+We can start off with comparing the trends in birth rates over time for different selected countries or regions.
+I will start off by looking at the highest overall average birthrates in all countries to see which countries typically have higher birthrates.
 
+```{r}
+birthrate_avg <- birthrates_longer %>%
+  group_by(`Country Name`) %>%
+    summarise(avg_birthrate_per_1000 = mean(birthrate_per_1000)) %>%
+      arrange(desc(avg_birthrate_per_1000))
 
+head(birthrate_avg)
+```
+We can display this information with a table using Gt.
 
+```{r}
+birthrate_avg %>%
+  gt() %>%
+    cols_label(
+      `Country Name` = "Country",
+      avg_birthrate_per_1000 = "Average Birthrate(per 1000 people)"
+    ) %>%
+    tab_header(title = md("Average Birthrate by Country")) %>%
+    tab_options(container.height = 500, container.overflow.y = TRUE) # Set container height and container overflow to add scrolling for large tables.
+```
+
+We can see some of the countries with the highest average birthrate being Niger, Chad, Angold, Mali and so on. All of these countries have an average birthrate greater than 47. This is more than 3 times the United States which has an average birthrate of around 15.
+
+To best compare different birth rate trends we can create a time plot to visualize our data.
+I will select a few countries arbitrarily just because there are so many countries to display at once
+```{r, warning=FALSE}
+countries = c("United Kingdom", "United States", "Germany", "Japan", "Italy", "China", "Niger", "Chad")
+displayed_birthrates <- birthrates_longer %>% 
+  filter(`Country Name` %in% countries)
+
+ggplot(data = displayed_birthrates, aes(x = year, y = birthrate_per_1000, color = `Country Name`)
+       ) +
+      geom_line() +
+      ggtitle("Selected Countries Birthrates Over time") +
+      xlab("Time") +
+      ylab("Birthrate (Per 1000 people)") + 
+      labs(color = "Country")
+```
+We can see that both Chad and Niger both have significantly higher birthrates throughout most of the past century. Most countries I selected have a similar shape. Interestingly China has a very high birthrate but around the 1970's it significantly decreased to a similar amount as countries like the United states. Japan has the lowest birthrate at 2020.
+
+After seeing this I was interested in seeing the global average birthrate. We can see with the longer format it is very easy to create graphs and group by certain attributes.
+```{r}
+global_birthrate <- birthrates_longer %>%
+  group_by(year) %>%
+  summarize(average_global_birthrate = mean(birthrate_per_1000))
+
+ggplot(data = global_birthrate, aes(x = year, y = average_global_birthrate)
+       ) +
+      geom_line() +
+      ggtitle("Global Average Birthrate") +
+      xlab("Time") +
+      ylab("Birthrate (Per 1000 people)")
+```
+
+We can see that the average global birthrate as decreased to an all time low from the 1960's to 2020.\
+
+### Summarizing
+To Summarize, we were able to use pivot longer to create a longer dataset to work with. We dropped na values. Because we used averages dropping values did not hurt our data too significantly. We compared the birthrate trend of several countries. We also displayed a table of the average birthrates of each country and displayed a plot with the overall global birthrate. 
