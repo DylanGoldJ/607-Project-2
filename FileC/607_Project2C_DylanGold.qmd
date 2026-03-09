@@ -36,8 +36,14 @@ emissions <- df %>%
   )
 head(emissions)
 ```
+We also need to convert the years from characters to numeric types.
+```{r}
+emissions$year <- as.numeric(emissions$year)
+head(emissions, 8)
+```
 
-Our data is now in a longer format. We can check NA values, from glimpse we saw we have several na values.
+
+Our data is now in a longer format with good typed columns We can check NA values, from glimpse we saw we have several na values.
 
 ```{r}
 colSums(is.na(emissions))
@@ -62,5 +68,97 @@ head(na_emissions)
 ```
 It looks like the GHG_emissions value can be NA pretty often. I don't have a good way to replace these values so I will also drop them. It could range from the data not being reported for particular years or other reasons as to why this occurs. We wont be able to graph these points anyway, we can keep this removal in mind for the analysis.
 
+```{r}
+emissions <- emissions %>% drop_na()
+colSums(is.na(emissions))
+```
+We now have a table
 
 ### Analysis
+The main analysis asked for by our classmate is to show the increase and decrease of emissions of countries over time.
+To start with I will create a table showing the total emissions of each substance. We will be able to see which substances have the most (quantity) emissions.
+
+```{r}
+emissions_by_substance <- emissions %>% 
+  group_by(Substance) %>%
+    summarise(emissions = sum(GHG_emissions)) %>%
+      arrange(desc(emissions))
+
+emissions_by_substance %>%
+  gt() %>%
+    cols_label(
+      `Substance` = "Substance",
+      emissions = "Emissions Metric Tons per Year"
+    ) %>%
+    tab_header(title = md("Emissions Global Total by Substance"))
+```
+We can see that CO2 Is by far the highest in terms of metric tons per year. This makes sense because CO2 is by far the most widely known green house gas.\
+
+I will also show a table with the global emissions based on the sector. We can see that different sectors have different effects on the global emissions, in particular the Power Industry has the greatest proportion, almost doubling the next two sectors at around 100,000 metrics tons per year.
+```{r}
+emissions_by_sector <- emissions %>% 
+  group_by(Sector) %>%
+    summarise(emissions = sum(GHG_emissions)) %>%
+      arrange(desc(emissions))
+
+emissions_by_sector %>%
+  gt() %>%
+    cols_label(
+      `Sector` = "Sector",
+      emissions = "Emissions Metric Tons per Year"
+    ) %>%
+    tab_header(title = md("Emissions Global Total by Substance"))
+```
+
+
+I will create a data frame with the combined emissions from all sectors. I will keep the substances separate, I dont know much about hte sustances, if different ones have different levels of danger in different quantities. 
+```{r}
+emissions_yearly <- emissions %>%
+  group_by(Country,Substance, year) %>%
+    summarize(emissions = sum(GHG_emissions), .groups = "keep")
+
+head(emissions_yearly)
+```
+
+
+Our classmate mentioned looking at emissions starting at the year 2000. \
+We now have the data grouped by country, substance and year. Lets create a plot showing the world wide total emissions by substance from 2000 onwards. 
+```{r}
+emissions_global_2000_onwards <- emissions_yearly %>%
+  filter(year >= 2000) %>%
+  group_by(Substance, year)%>%
+    summarize(emissions = sum(emissions), .groups = "keep")
+
+ggplot(data = emissions_global_2000_onwards, aes(x = year, y = emissions, color = `Substance`)
+       ) +
+      geom_line() +
+      ggtitle("Global Emissions Since 2000 by substance") +
+      xlab("Year") +
+      ylab("Emissions (Metric Tons per Year)") + 
+      labs(color = "Substance")
+```
+Here we have a bit more context to our previous table. We can see that while all of the substances have increased in volume CO2 has increased significantly. There have been some years where CO2 usage has decreased but as of 2023 it was back at an all time high.
+
+I am interested in seeing specific countries like the United States and China's CO2 Emissions since 2000.
+
+```{r}
+countries = c("United States", "China")
+china_vs_us_CO2 <- emissions %>%
+  filter(year >= 2000) %>%
+    filter(Country %in% countries) %>%
+      filter(Substance == "CO2") %>% 
+        group_by(Country, year) %>%
+          summarise(CO2_Emissions = sum(GHG_emissions), .groups = "keep")
+
+ggplot(data = china_vs_us_CO2, aes(x = year, y = CO2_Emissions, color = Country)) +
+    geom_line() +
+    ggtitle("CO2 Emissions of China and US") +
+    xlab("Year") +
+    ylab("CO2 Emissions (Metric Tons per Year)") + 
+    labs(color = "Country")
+```
+We can add more countries to the list to compare more, I selected China and United States because I believe they are percieved to be some of the largest culprits of green house gas emissions. We can see here that the United States has a fair amount of CO2 Emissions that have more or less decreased within the last 20 years. China on the other hand has had a large increase in emissions to more than double the US's emissions. Keep in mind the graph here did not start y at 0 so it looks worse that it is.
+These were some things we could analyze using the tidied data set.
+
+###Summarize
+To summarize, we were able to clean and tidy the data set suggested by our classmate about different emissions in different countries over time. After tiding this data set we were able to look at different types of emissions globally as well as how different sectors affected the global emissions total. We were also able to look at the increase in emissions through a timeplot for several substances and finally compared specific countries, in particular the US and China.
