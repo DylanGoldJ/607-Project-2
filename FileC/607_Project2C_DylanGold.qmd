@@ -1,5 +1,5 @@
 ---
-title: "607_Project2B_DylanGold"
+title: "607_Project2C_DylanGold"
 format: html
 editor: visual
 ---
@@ -11,6 +11,14 @@ For my 3rd file I picked a dataset containing emission data based on sector and 
 https://en.wikipedia.org/wiki/List_of_countries_by_carbon_dioxide_emissions#Fossil_carbon_dioxide_emissions_by_country\
 From the link I got this csv file containing the green house gas emissions of countries by sector.\
 I uploaded the file to github then imported this file.
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(gt)
+```
+
+
 ```{r,message=FALSE, warning=FALSE}
 url <- "https://raw.githubusercontent.com/DylanGoldJ/607-Project-2/refs/heads/main/FileC/EDGAR_2024_GHG_booklet_2024.csv"
 
@@ -160,5 +168,6 @@ ggplot(data = china_vs_us_CO2, aes(x = year, y = CO2_Emissions, color = Country)
 We can add more countries to the list to compare more, I selected China and United States because I believe they are percieved to be some of the largest culprits of green house gas emissions. We can see here that the United States has a fair amount of CO2 Emissions that have more or less decreased within the last 20 years. China on the other hand has had a large increase in emissions to more than double the US's emissions. Keep in mind the graph here did not start y at 0 so it looks worse that it is.
 These were some things we could analyze using the tidied data set.
 
-###Summarize
+### Summarize
 To summarize, we were able to clean and tidy the data set suggested by our classmate about different emissions in different countries over time. After tiding this data set we were able to look at different types of emissions globally as well as how different sectors affected the global emissions total. We were also able to look at the increase in emissions through a timeplot for several substances and finally compared specific countries, in particular the US and China.
+

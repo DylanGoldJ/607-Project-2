@@ -128,7 +128,7 @@ ggplot(data = displayed_birthrates, aes(x = year, y = birthrate_per_1000, color 
        ) +
       geom_line() +
       ggtitle("Selected Countries Birthrates Over time") +
-      xlab("Time") +
+      xlab("Year") +
       ylab("Birthrate (Per 1000 people)") + 
       labs(color = "Country")
 ```
@@ -144,7 +144,7 @@ ggplot(data = global_birthrate, aes(x = year, y = average_global_birthrate)
        ) +
       geom_line() +
       ggtitle("Global Average Birthrate") +
-      xlab("Time") +
+      xlab("Year") +
       ylab("Birthrate (Per 1000 people)")
 ```
 

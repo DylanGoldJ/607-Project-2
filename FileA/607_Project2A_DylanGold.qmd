@@ -137,7 +137,7 @@ ggplot(data = germany_energy,
        ) +
       geom_line() +
       ggtitle("Germany Energy Generation By Type Overtime") +
-      xlab("Time") +
+      xlab("Year") +
       ylab("Energy Generated (megawatt)") + 
       labs(color = "Energy Type")
 ```
@@ -153,7 +153,7 @@ ggplot(data = germany_energy,
        ) +
       geom_line() +
       ggtitle("Germany Energy Generation By Type Overtime") +
-      xlab("Time") +
+      xlab("Year") +
       ylab("Energy Generated (megawatt)") + 
       labs(color = "Energy Type")
 ```
@@ -170,7 +170,7 @@ ggplot(data = UK_energy,
        ) +
       geom_line() +
       ggtitle("United Kingdom Generation By Type Overtime") +
-      xlab("Time") +
+      xlab("Year") +
       ylab("Energy Generated (megawatt)") + 
       labs(color = "Energy Type")
 ```
@@ -189,7 +189,7 @@ ggplot(data = france_energy,
        ) +
       geom_line() +
       ggtitle("France Energy Generation By Type Overtime") +
-      xlab("Time") +
+      xlab("Year") +
       ylab("Energy Generated (megawatt)")
 ```
 We can see for France solar energy is also a large portion of their energy gernation. We dont see some type's of energy generation. This could indicate they may have not reported this energy type. It seems that all countries have solar as a decent portion of their energy generation. I will show a graph of just solar energy now.
@@ -205,7 +205,7 @@ ggplot(data = solar_energy,
        ) +
       geom_line() +
       ggtitle("France Energy Generation By Type Overtime") +
-      xlab("Time") +
+      xlab("Year") +
       ylab("Energy Generated (megawatt)")
 ```      
 
